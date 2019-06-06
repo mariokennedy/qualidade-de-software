@@ -1,0 +1,143 @@
+*{
+margin: 0;
+padding: 0;
+
+}
+
+body{
+  background-color:  red;
+}
+#imagcabec01{
+  height: 300px;
+  width: 100%;
+  top: 0px;
+  cursor: pointer;
+}
+/* menu*/
+
+.menu{
+  width: 100%;
+  height: 50px; 
+  background-color: #222;
+  font-size: "Arial";
+}
+
+.menu ul{
+list-style: none;
+position: relative; 
+}
+.menu ul li{
+  width: 150px;
+  float: left; 
+}
+.menu a{
+  padding: 15px;
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  background-color: #222;
+  color: #fff;
+}
+.menu ul ul{
+  position: absolute;
+  visibility: hidden;
+
+}
+.menu ul li:hover ul{
+  visibility: visible;
+
+}
+.menu a:hover{
+  background-color: red;
+  color: #555;
+}
+.menu ul ul li{
+  float: none;
+  border-bottom: 1px solid #ccc;
+
+
+}
+.menu ul ul li a{
+background-color: #069;
+}
+
+label[for="bt_menu"]{
+  padding: 5px;
+  background-color: #222;
+  color: #fff;
+  font-family: "Geneva";
+  text-align: center;
+  font-size: 30px;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+}
+#bt_menu{
+  display: none;
+
+}
+label[for="bt_menu"]{
+  display: none;
+  }
+@media(max-width: 800px){
+
+label[for="bt_menu"]{
+  display: block;
+}
+#bt_menu:checked  ~ .menu{
+  margin-left: 0;
+}
+.menu{
+  margin-top: 5px;
+  margin-left: -100%;
+  transition: all .4s;
+}
+  .menu ul li {
+    width: 100%;
+    float: none;
+  }
+  .menu ul ul {
+    position: static;
+    overflow: hidden;
+    max-height: 0;
+    transition: all .4s;
+  }
+  .menu ul li:hover ul{
+    height: auto;
+    max-height: 200px
+  }
+
+   /* #slide{
+    /*position: absolute;
+    margin-top: 300%;
+    overflow: hidden;*/
+
+}
+
+
+.click{
+  position: absolute;
+  overflow: hidden;
+  clear: both;
+  top: 700px;
+}
+
+.imgshow{
+  width: 1340px;
+  margin-left:  5px;
+  
+}
+.slide{
+  
+}
+.top{
+  position: relative;
+ 
+}
+.ok{
+  margin-top: 7%;
+  font-size: 30px;
+  color: #fff;
+  text-align: center;
+
+}

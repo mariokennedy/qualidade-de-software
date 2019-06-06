@@ -1,0 +1,48 @@
+.title{color: #fff;
+	font-size: 40px;
+	font-family: 'Geneva';
+	top: 200px;
+	height: 50px;
+	margin-left: 0px;
+	margin-top: 40px;
+}
+.col-md-6{
+	color: #fff;
+	margin-left: 25%;
+	margin-right: 40%;
+
+}
+.subtitle1{
+	color: #fff;
+margin-top: 20px;
+font-size:  25px;
+
+}
+.subtitle{
+	margin-top: 20px;
+	font-size: 20px;
+	color: #fff;
+}
+
+.andre{
+	margin-top: -20%;
+	margin-left: 70%;
+}
+.andre2{
+	margin-top:  -260%;
+	margin-left: 120%;
+}
+.top`{
+	margin-top: 20px;
+	position: relative;
+	margin-right:20%;
+}
+.ok {
+	position: relative;
+}
+#slide{
+
+    height 100%;
+    margin-right:30px;
+    
+}

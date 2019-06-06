@@ -1,0 +1,218 @@
+// $(document).ready(function(){
+// 	var ScreenW = $(window).width();
+
+// 	if (ScreenW < 992) {
+// 		var btnMenu = $(".btn-menu");
+// 		var Menu = $(".menu nav");
+
+// 		btnMenu.on("click", function(){
+// 			$(this).toggleClass("active");
+// 			Menu.slideToggle();
+// 		});
+// 	};
+// });
+
+(function($) {
+  $.fn.menumaker = function(options) {
+
+      var cssmenu = $(this), settings = $.extend({
+        title: "Menu",
+        format: "dropdown",
+        sticky: false
+      }, options);
+
+      return this.each(function() {
+        cssmenu.prepend('<div id="menu-button">' + settings.title + '</div>');
+        $(this).find("#menu-button").on('click', function(){
+          $(this).toggleClass('menu-opened');
+          var mainmenu = $(this).next('ul');
+          if (mainmenu.hasClass('open')) {
+            mainmenu.hide().removeClass('open');
+          }
+          else {
+            mainmenu.show().addClass('open');
+            if (settings.format === "dropdown") {
+              mainmenu.find('ul').show();
+            }
+          }
+        });
+
+        cssmenu.find('li ul').parent().addClass('has-sub');
+
+        multiTg = function() {
+          cssmenu.find(".has-sub").prepend('<span class="submenu-button"></span>');
+          cssmenu.find('.submenu-button').on('click', function() {
+            $(this).toggleClass('submenu-opened');
+            if ($(this).siblings('ul').hasClass('open')) {
+              $(this).siblings('ul').removeClass('open').hide();
+            }
+            else {
+              $(this).siblings('ul').addClass('open').show();
+            }
+          });
+        };
+
+        if (settings.format === 'multitoggle') multiTg();
+        else cssmenu.addClass('dropdown');
+
+        if (settings.sticky === true) cssmenu.css('position', 'fixed');
+
+        resizeFix = function() {
+          if ($( window ).width() > 768) {
+            cssmenu.find('ul').show();
+          }
+
+          if ($(window).width() <= 768) {
+            cssmenu.find('ul').hide().removeClass('open');
+          }
+        };
+        resizeFix();
+        return $(window).on('resize', resizeFix);
+
+      });
+  };
+})(jQuery);
+
+(function($){
+$(document).ready(function(){
+
+$(document).ready(function() {
+  $("#cssmenu").menumaker({
+    title: "Menu",
+    format: "multitoggle"
+  });
+
+  $("#cssmenu").prepend("<div id='menu-line'></div>");
+
+var foundActive = false, activeElement, linePosition = 0, menuLine = $("#cssmenu #menu-line"), lineWidth, defaultPosition, defaultWidth;
+
+$("#cssmenu > ul > li").each(function() {
+  if ($(this).hasClass('active')) {
+    activeElement = $(this);
+    foundActive = true;
+  }
+});
+
+if (foundActive === false) {
+  activeElement = $("#cssmenu > ul > li").first();
+}
+
+defaultWidth = lineWidth = activeElement.width();
+
+defaultPosition = linePosition = activeElement.position().left;
+
+menuLine.css("width", lineWidth);
+menuLine.css("left", linePosition);
+
+$("#cssmenu > ul > li").hover(function() {
+  activeElement = $(this);
+  lineWidth = activeElement.width();
+  linePosition = activeElement.position().left;
+  menuLine.css("width", lineWidth);
+  menuLine.css("left", linePosition);
+},
+function() {
+  menuLine.css("left", defaultPosition);
+  menuLine.css("width", defaultWidth);
+});
+
+});
+
+
+});
+})(jQuery);
+
+
+
+
+// Filter Isotope
+$(window).load(function(){
+  // init Isotope
+  var $grid = $('.isotope').isotope({
+    itemSelector: '.item',
+    layoutMode: 'fitRows'
+  });
+
+  // filter functions
+  var filterFns = {
+    // show if number is greater than 50
+    numberGreaterThan50: function() {
+      var number = $(this).find('.number').text();
+      return parseInt( number, 10 ) > 50;
+    },
+
+    // show if name ends with -ium
+    ium: function() {
+      var name = $(this).find('.name').text();
+      return name.match( /ium$/ );
+    }
+  };
+
+  // bind filter button click
+  $('.filters-button-group').on( 'click', 'button', function() {
+    var filterValue = $( this ).attr('data-filter');
+
+    // use filterFn if matches value
+    filterValue = filterFns[ filterValue ] || filterValue;
+    $grid.isotope({ filter: filterValue });
+  });
+
+  // change active class on buttons
+  $('.button-group').each( function( i, buttonGroup ) {
+    var $buttonGroup = $( buttonGroup );
+    $buttonGroup.on( 'click', 'button', function() {
+      $buttonGroup.find('.active').removeClass('active');
+      $( this ).addClass('active');
+    });
+  });
+});
+
+$(document).ready(function(){
+  // Map
+  function initialize() {
+    var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+    var myLatlng = new google.maps.LatLng(-9.668512, -35.7322102);
+    var mapOptions = {
+      zoom: 17,
+      scrollwheel: false,
+      center: myLatlng
+      // mapTypeId: google.maps.MapTypeId.SATELLITE
+    };
+
+    var styles = [
+    {
+      stylers: [
+      { hue: "#333333" },
+      { saturation: -230 }
+      ]
+    },{
+      featureType: "road.arterial",
+      elementType: "geometry",
+      stylers: [
+      { lightness: 400 },
+      { visibility: "simplified" }
+      ]
+    },{
+      featureType: "road",
+      elementType: "labels",
+      stylers: [
+      { visibility: "on" }
+      ]
+    }
+    ];
+
+
+    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+    var marker = new google.maps.Marker({
+      position: myLatlng,
+      map: map,
+      title: 'Log Estrategia'//,
+      //icon: 'assets/img/layout/marker.png'
+    });
+  }
+
+  if ($('#map-canvas').length > 0) {
+    google.maps.event.addDomListener(window, 'load', initialize);
+  }
+});
